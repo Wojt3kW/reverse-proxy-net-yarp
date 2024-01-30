@@ -1,0 +1,44 @@
+version: "3.9"
+name: "reverse-proxy-yarp"
+
+services:
+  gateway.api:
+    image: ${DOCKER_REGISTRY-}gatewayapi
+    container_name: gateway-api
+    build:
+      context: .
+      dockerfile: Gateway.Api/Dockerfile
+    ports:
+      - 5001:80
+      - 5101:443
+    networks:
+      - yarp_network
+
+  users.api:
+    image: ${DOCKER_REGISTRY-}usersapi
+    container_name: users-api
+    build:
+      context: .
+      dockerfile: Users.Api/Dockerfile
+    # ports:
+    #   - 3001:80
+    #   - 3101:443
+    networks:
+      - yarp_network
+
+  roles.api:
+    image: ${DOCKER_REGISTRY-}rolesapi
+    container_name: roles-api
+    build:
+      context: .
+      dockerfile: Roles.Api/Dockerfile
+    # ports:
+    #   - 4001:80
+    #   - 4101:443
+    networks:
+      - yarp_network
+
+networks:
+  yarp_network:
+    name: yarp_network
+    driver: bridge
