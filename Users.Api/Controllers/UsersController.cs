@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Users.Api.Controllers
@@ -16,6 +17,9 @@ namespace Users.Api.Controllers
         [HttpGet]
         public IEnumerable<User> Get()
         {
+            var url = Request.GetEncodedUrl();
+            _logger.LogDebug($"get users from '{url}'");
+
             return Enumerable
                 .Range(1, 5)
                 .Select(index => new User(index, $"User{index}", $"email{index}@domain.com"))

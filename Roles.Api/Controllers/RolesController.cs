@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Roles.Api.Controllers
@@ -16,6 +17,9 @@ namespace Roles.Api.Controllers
         [HttpGet]
         public IEnumerable<Role> Get()
         {
+            var url = Request.GetEncodedUrl();
+            _logger.LogDebug($"get users from '{url}'");
+
             return Enumerable
                 .Range(1, 5)
                 .Select(index => new Role(index, $"Role{index}"))
