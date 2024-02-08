@@ -18,7 +18,7 @@ namespace Roles.Api.Controllers
         public IEnumerable<Role> Get()
         {
             var url = Request.GetEncodedUrl();
-            _logger.LogDebug($"get users from '{url}'");
+            _logger.LogDebug($"get roles from '{url}'");
 
             return Enumerable
                 .Range(1, 5)
